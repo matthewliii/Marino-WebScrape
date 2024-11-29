@@ -30,3 +30,12 @@ jobs:
       # Step 4: Run the scraper
       - name: Run scraper
         run: python main.py
+
+      # Step 5: Commit and push changes
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/scraped_data.csv
+          git commit -m "Update scraped data [skip ci]" || echo "No changes to commit"
+          git push
