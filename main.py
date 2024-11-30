@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import datetime
+from zoneinfo import ZoneInfo
 import pandas as pd
 
 # Making a GET request
@@ -15,7 +16,8 @@ print(r.status_code)
 soup = BeautifulSoup(r.content, 'html.parser')
 text = soup.get_text().splitlines()
 clean = []
-dt = datetime.datetime.now()
+eastern = ZoneInfo("America/New_York")
+dt = datetime.datetime.now(eastern)
 data = {
     'Location' : [],
     'Count' : [],
