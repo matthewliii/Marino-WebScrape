@@ -3,7 +3,7 @@ name: Run Web Scraper
 # Trigger the action on a schedule
 on:
   schedule:
-    - cron: "0,30 5-23 * * *" # Every 30 minutes
+    - cron: "0,30 10-4 * * *" 
   workflow_dispatch: # Allow manual triggering of the workflow
 
 jobs:
