@@ -2,33 +2,41 @@ from flask import Flask, request, jsonify, send_file
 import matplotlib.pyplot as plt
 import pandas as pd
 import io
+import re
 import base64
 
 app = Flask(__name__)
 
-def graph(location, day):
-    df = group_dict[(location, day)]
-    plt.figure(figsize=(10, 6))
-    plt.plot(df['Time'], df['Count'], marker='o', linestyle='-', label=location)
-    plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%H:%M:%S'))
-    plt.title(f"Count vs Time for {location}")
-    plt.ylim(0, capacities[location])
-    plt.xlabel("Time")
-    plt.ylabel("Count")
-    plt.xticks(rotation=45)
-    plt.grid(True, linestyle='--', alpha=0.7)
-    plt.tight_layout()
-    # plt.show()
+# Utility function to clean location input
+def clean_location(location):
+    # Remove unwanted spaces and ensure consistency
+    location = location.strip()
+
+    # Replace multiple spaces with a single space
+    location = re.sub(r'\s+', ' ', location)
+
+    return location
 
 
 @app.route('/generate-graph', methods=['GET'])
 def generate_graph():
-    location = request.args.get('location')
-    day = request.args.get('day')
+    raw_location = request.args.get('location', "")
+    raw_day = request.args.get('day', "")
+    print(raw_location)
+    # Decode and clean the location
+    location = clean_location(raw_location)
 
-    if not location or not day:
-        return jsonify({"error": "Please provide both location and day"}), 400
-    
+    # Validate the day (example: ensure it's a weekday)
+    valid_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    day = raw_day.strip()
+    if day not in valid_days:
+        return jsonify({"error": "Invalid day parameter"}), 400
+
+    # Example: match cleaned location with your expected values
+    expected_locations = ["Marino Center - 3rd Floor Weight Room", "Other Location"]
+    if location not in expected_locations:
+        return jsonify({"error": "Invalid location parameter"}), 400
+
     data = pd.read_csv('counts.csv')
 
     df = pd.DataFrame(data)
@@ -58,6 +66,8 @@ def generate_graph():
     # Encode the image to base64
     graph_base64 = base64.b64encode(buf.read()).decode('utf-8')
     buf.close()
+
+    print("Endpoint hit successfully")
 
     # Return the image as a base64 string
     return jsonify({"graph": graph_base64})

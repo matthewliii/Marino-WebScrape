@@ -115,7 +115,7 @@ const App = () => {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:5000/generate-graph?location=${location}&day=${day}`
+        `http://192.168.104.104:3000/generate-graph?location=${location}&day=${day}`
       );
       const data = await response.json();
 
