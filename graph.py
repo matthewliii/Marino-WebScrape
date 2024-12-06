@@ -38,4 +38,4 @@ def graph(location, day):
     plt.tight_layout()
     plt.show()
 
-graph("Marino Center - 3rd Floor Weight Room", "Sunday")
+graph("Marino Center - 3rd Floor Weight Room", "Wednesday")
