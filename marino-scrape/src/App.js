@@ -113,13 +113,25 @@ const App = () => {
       return;
     }
 
+    // fetch(
+    //       `http://127.0.0.1:5000/generate-graph?location=${encodeURIComponent(location)}&day=${encodeURIComponent(day)}`
+    //     ).then(response => {
+    //       if (!response.ok) {
+    //         throw new Error(`HTTP error! status: ${response.status}`);
+    //       }
+    //       return response.json();
+    //     })
+    //     .then(data => console.log("Data:", data))
+    //     .catch(error => console.error("Error:", error));
+
     try {
+   
       const response = await fetch(
-        `http://192.168.104.104:3000/generate-graph?location=${location}&day=${day}`
+        `http://127.0.0.1:5000/generate-graph?location=${encodeURIComponent(location)}&day=${encodeURIComponent(day)}`
       );
       const data = await response.json();
-
       if (response.ok) {
+        console.log(data)
         setGraphImage(`data:image/png;base64,${data.graph}`);
       } else {
         alert(data.error);

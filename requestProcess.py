@@ -1,11 +1,16 @@
 from flask import Flask, request, jsonify, send_file
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg') 
 import pandas as pd
 import io
 import re
 import base64
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app) 
 
 # Utility function to clean location input
 def clean_location(location):
@@ -18,6 +23,14 @@ def clean_location(location):
     return location
 
 
+@app.errorhandler(404)
+def not_found_error(error):
+    return jsonify({"error": "Endpoint not found"}), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return jsonify({"error": "Internal server error"}), 500
+
 @app.route('/generate-graph', methods=['GET'])
 def generate_graph():
     raw_location = request.args.get('location', "")
@@ -25,7 +38,8 @@ def generate_graph():
     print(raw_location)
     # Decode and clean the location
     location = clean_location(raw_location)
-
+    day = raw_day
+    
     # Validate the day (example: ensure it's a weekday)
     valid_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     day = raw_day.strip()
@@ -49,8 +63,8 @@ def generate_graph():
     plt.figure(figsize=(10, 6))
     plt.plot(df['Time'], df['Count'], marker='o', linestyle='-', label=location)
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%H:%M:%S'))
-    plt.title(f"Count vs Time for {location}")
-    plt.ylim(0, capacities[location])
+    plt.title(f"Count vs Time for {location} on {day}")
+    plt.ylim(0, capacities.get(location, 100))
     plt.xlabel("Time")
     plt.ylabel("Count")
     plt.xticks(rotation=45)
@@ -66,8 +80,6 @@ def generate_graph():
     # Encode the image to base64
     graph_base64 = base64.b64encode(buf.read()).decode('utf-8')
     buf.close()
-
-    print("Endpoint hit successfully")
 
     # Return the image as a base64 string
     return jsonify({"graph": graph_base64})
