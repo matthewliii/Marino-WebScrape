@@ -6,7 +6,6 @@ import pandas as pd
 import io
 import re
 import base64
-
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -47,7 +46,7 @@ def generate_graph():
         return jsonify({"error": "Invalid day parameter"}), 400
 
     # Example: match cleaned location with your expected values
-    expected_locations = ["Marino Center - 3rd Floor Weight Room", "Other Location"]
+    expected_locations = ["SquashBusters - 4th Floor", "Marino Center - Studio A", "Marino Center - Studio B", "Marino Center - 2nd Floor", "Marino Center - Gymnasium", "Marino Center - 3rd Floor Weight Room", "Marino Center - 3rd Floor Select & Cardio"]
     if location not in expected_locations:
         return jsonify({"error": "Invalid location parameter"}), 400
 
@@ -60,9 +59,13 @@ def generate_graph():
     capacities = {'SquashBusters - 4th Floor' : 50, 'Marino Center - Studio A' : 33, 'Marino Center - Studio B' : 33, 'Marino Center - 2nd Floor' : 105, 'Marino Center - Gymnasium' : 60, 'Marino Center - 3rd Floor Weight Room' : 65, 'Marino Center - 3rd Floor Select & Cardio' : 90}
 
     df = group_dict[(location, day)]
+    df.sort_values('Time', inplace=True)
+    x = df['Time']
+    y = df['Count']
+    df['SMA'] = y.rolling(window=7).mean()
     plt.figure(figsize=(10, 6))
-    plt.plot(df['Time'], df['Count'], marker='o', linestyle='-', label=location)
-    plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%H:%M:%S'))
+    plt.plot(x, df['SMA'], marker='o', linestyle='-', label=location)
+    plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%I:%M%p'))
     plt.title(f"Count vs Time for {location} on {day}")
     plt.ylim(0, capacities.get(location, 100))
     plt.xlabel("Time")
