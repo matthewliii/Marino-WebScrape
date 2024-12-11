@@ -75,6 +75,7 @@ const App = () => {
         variant="contained"
         color="primary"
         fullWidth
+        size="large"
         onClick={generateGraph}
         sx={{ mb: 4 }}
       >

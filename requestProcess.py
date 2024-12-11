@@ -8,7 +8,7 @@ import re
 import base64
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 CORS(app) 
 
 # Utility function to clean location input
@@ -88,4 +88,5 @@ def generate_graph():
     return jsonify({"graph": graph_base64})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    from os import getenv
+    app.run(host="0.0.0.0", port=int(getenv("PORT", 5000)))
