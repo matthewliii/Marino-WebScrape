@@ -21,7 +21,7 @@ const App = () => {
     try {
    
       const response = await fetch(
-        `http://127.0.0.1:5000/generate-graph?location=${encodeURIComponent(location)}&day=${encodeURIComponent(day)}`
+        `https://marino-webscrape.onrender.com/generate-graph?location=${encodeURIComponent(location)}&day=${encodeURIComponent(day)}`
       );
       const data = await response.json();
       if (response.ok) {
