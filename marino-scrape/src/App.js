@@ -77,7 +77,7 @@ const App = () => {
         fullWidth
         size="large"
         onClick={generateGraph}
-        sx={{ mb: 4 }}
+        sx={{ mb: 4, width: '100%', padding: '15px 22px'  }}
       >
         Generate Graph
       </Button>
