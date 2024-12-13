@@ -4,6 +4,12 @@ The data is being scraped in 30 minute intervals from the Northeastern Campus Re
 
 Here are the technologies that are being used:
 
-Backend: Flask and hosted on Render
+Backend: 
+Flask app for handling requests and generating a matplotlib graph from the scraped data which is hosted on Render
+Webscraper built with beautiful soup and Pandas deployed on GitHub Actions using a Cron Job Scheduler
 
-Frontend: React and hosted on Vercel
+Frontend: 
+React app hosted on Vercel
+
+Please Experiment with this app here:
+https://marino-scrape.vercel.app/

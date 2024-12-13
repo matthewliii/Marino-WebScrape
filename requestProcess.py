@@ -65,6 +65,7 @@ def generate_graph():
     df['SMA'] = y.rolling(window=7).mean()
     plt.figure(figsize=(10, 6))
     plt.plot(x, df['SMA'], marker='o', linestyle='-', label=location)
+    plt.gca().xaxis.set_major_locator(plt.matplotlib.dates.HourLocator(interval=1))
     plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%I:%M%p'))
     plt.title(f"Count vs Time for {location} on {day}")
     plt.ylim(0, capacities.get(location, 100))
