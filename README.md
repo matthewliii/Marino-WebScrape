@@ -1,15 +1,37 @@
-I made this project to optimize my schedule and not provide myself any excuses for going to the gym anymore.
-Being able to see a visualization of when people go to these facilities has helped me identify the best time to go and work my schedule around them.
-The data is being scraped in 30 minute intervals from the Northeastern Campus Recreation Website which has employee reported data regarding the counts of people at each facility.
+# Marino Facility Usage Tracker
 
-Here are the technologies that are being used:
+This project was created to help optimize my schedule and eliminate excuses for skipping the gym. By visualizing when people use these facilities, I’ve been able to identify the best times to go and plan my schedule accordingly.
 
-Backend: 
-Flask app for handling requests and generating a matplotlib graph from the scraped data which is hosted on Render
-Webscraper built with beautiful soup and Pandas deployed on GitHub Actions using a Cron Job Scheduler
+The app scrapes data from the Northeastern Campus Recreation Website every 30 minutes, which reports employee-provided data on the number of people at each facility. This information is then processed and presented in an intuitive, interactive format.
 
-Frontend: 
-React app hosted on Vercel
+## Features
+- **Real-time Visualization**: See usage trends across various gym facilities.
+- **Data-Driven Scheduling**: Plan your gym visits during off-peak hours.
+- **Fully Automated**: Data is automatically scraped and updated at regular intervals.
 
-Please Experiment with this app here:
-https://marino-scrape.vercel.app/
+---
+
+## Technologies Used
+
+### **Backend**
+- **Flask**: Handles API requests and generates graphs using Matplotlib.
+- **Beautiful Soup & Pandas**: Scrape and process data from the Northeastern Campus Recreation Website.
+- **GitHub Actions**: Automates the web scraping process with a Cron Job Scheduler.
+- **Hosting**: The Flask backend is hosted on [Render](https://render.com).
+
+### **Frontend**
+- **React**: Provides a dynamic and responsive user interface.
+- **Hosting**: The React app is deployed and hosted on [Vercel](https://vercel.com).
+
+---
+
+## How to Use
+
+Experiment with the app and discover the best times to visit the gym!  
+👉 [Try it out here!](https://marino-scrape.vercel.app/)
+
+---
+
+### Why This Project?
+
+By providing a clear, data-driven visualization of facility usage, this app helps users plan their fitness routines effectively and without uncertainty. Whether you’re looking to avoid crowds or fit the gym into a busy schedule, this tool ensures you can always make informed decisions.
