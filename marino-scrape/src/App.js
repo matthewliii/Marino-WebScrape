@@ -6,7 +6,16 @@ const App = () => {
   const [day, setDay] = useState("");
   const [graphImage, setGraphImage] = useState(null);
 
-  const locations = ["SquashBusters - 4th Floor", "Marino Center - Studio A", "Marino Center - Studio B", "Marino Center - 2nd Floor", "Marino Center - Gymnasium", "Marino Center - 3rd Floor Weight Room", "Marino Center - 3rd Floor Select & Cardio"];
+  const locations = [
+    "SquashBusters - 4th Floor",
+    "Marino Center - Studio A",
+    "Marino Center - Studio B",
+    "Marino Center - 2nd Floor",
+    "Marino Center - Gymnasium",
+    "Marino Center - 3rd Floor Weight Room",
+    "Marino Center - 3rd Floor Select & Cardio",
+  ];
+
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   const handleLocationChange = (event) => setLocation(event.target.value);
@@ -14,24 +23,25 @@ const App = () => {
 
   const generateGraph = async () => {
     if (!location || !day) {
-      alert("Please select both Location and Day!");
+      alert("Please select both a location and a day.");
       return;
     }
 
     try {
-   
       const response = await fetch(
         `https://marino-webscrape.onrender.com/generate-graph?location=${encodeURIComponent(location)}&day=${encodeURIComponent(day)}`
       );
+
       const data = await response.json();
+
       if (response.ok) {
-        console.log(data)
         setGraphImage(`data:image/png;base64,${data.graph}`);
       } else {
         alert(data.error);
       }
     } catch (error) {
       console.error("Error fetching graph:", error);
+      alert("An error occurred while generating the graph. Please try again.");
     }
   };
 
@@ -61,7 +71,12 @@ const App = () => {
       {/* Day Dropdown */}
       <FormControl fullWidth sx={{ mb: 2 }}>
         <InputLabel id="day-select-label">Day</InputLabel>
-        <Select labelId="day-select-label" value={day} onChange={handleDayChange} label="Day">
+        <Select
+          labelId="day-select-label"
+          value={day}
+          onChange={handleDayChange}
+          label="Day"
+        >
           {days.map((d) => (
             <MenuItem key={d} value={d}>
               {d}
@@ -77,7 +92,7 @@ const App = () => {
         fullWidth
         size="large"
         onClick={generateGraph}
-        sx={{ mb: 4, width: '100%', padding: '15px 22px'  }}
+        sx={{ mb: 4, py: 2 }}
       >
         Generate Graph
       </Button>
