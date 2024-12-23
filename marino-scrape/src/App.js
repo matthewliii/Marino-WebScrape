@@ -29,7 +29,7 @@ const App = () => {
 
     try {
       const response = await fetch(
-        `https://marino-webscrape.onrender.com/generate-graph?location=${encodeURIComponent(location)}&day=${encodeURIComponent(day)}`
+        `https://marino-scrape-inio5.ondigitalocean.app/generate-graph?location=${encodeURIComponent(location)}&day=${encodeURIComponent(day)}`
       );
 
       const data = await response.json();

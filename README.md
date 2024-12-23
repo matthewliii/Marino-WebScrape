@@ -5,6 +5,7 @@ This project was created to help optimize my schedule and eliminate excuses for 
 The app scrapes data from the Northeastern Campus Recreation Website every 30 minutes, which reports employee-provided data on the number of people at each facility. This information is then processed and presented in an intuitive, interactive format.
 
 ## Features
+
 - **Real-time Visualization**: See usage trends across various gym facilities.
 - **Data-Driven Scheduling**: Plan your gym visits during off-peak hours.
 - **Fully Automated**: Data is automatically scraped and updated at regular intervals.
@@ -14,12 +15,14 @@ The app scrapes data from the Northeastern Campus Recreation Website every 30 mi
 ## Technologies Used
 
 ### **Backend**
+
 - **Flask**: Handles API requests and generates graphs using Matplotlib.
 - **Beautiful Soup & Pandas**: Scrape and process data from the Northeastern Campus Recreation Website.
 - **GitHub Actions**: Automates the web scraping process with a Cron Job Scheduler.
-- **Hosting**: The Flask backend is hosted on [Render](https://render.com).
+- **Hosting**: The Flask backend is hosted on [DigitalOcean](https://www.digitalocean.com/).
 
 ### **Frontend**
+
 - **React**: Provides a dynamic and responsive user interface.
 - **Hosting**: The React app is deployed and hosted on [Vercel](https://vercel.com).
 
